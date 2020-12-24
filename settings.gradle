@@ -1,3 +1,4 @@
+include ':ffmpeg'
 include ':cmake-application'
 include ':app'
 rootProject.name = "AvSample"
