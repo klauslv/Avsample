@@ -12,9 +12,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags ""
+//            }
+//        }
+        externalNativeBuild(){
+            cmake{
+                abiFilters "armeabi-v7a" //指定编译为 armeabi-v7a
             }
         }
     }

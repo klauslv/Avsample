@@ -29,5 +29,5 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_github_cmake_1application_MainActivity_testCmake(JNIEnv *env,jclass clazz) {
     std::string hello = "Hello from C++";
-    __android_log_print(ANDROID_LOG_DEBUG, "DevYK", "main--->:%d", main());
+//    __android_log_print(ANDROID_LOG_DEBUG, "DevYK", "main--->:%d", main());
 }
