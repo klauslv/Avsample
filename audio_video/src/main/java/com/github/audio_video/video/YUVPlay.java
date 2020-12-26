@@ -2,8 +2,12 @@ package com.github.audio_video.video;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 /**
  * Created by lvming on 12/25/20 7:40 PM.
@@ -42,12 +46,25 @@ public class YUVPlay extends GLSurfaceView implements SurfaceHolder.Callback {
     }
 
     public native void nativeGlesPlay(String yuv420Path, Object surface);
+    public native void nativeWindowPlay(String yuv420Path, Object surface);
 
+    public  void showMessage(final String message){
+        Log.d(TAG,message);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    //使用gles播放
     public void glesPlay(final String yuv420Path, final Object surface) {
         this.yuv420Path = yuv420Path;
         this.surface = surface;
 
         Thread thread = new Thread(playRunnable);
+        thread.start();
     }
 
     private Runnable playRunnable = new Runnable() {
@@ -56,5 +73,7 @@ public class YUVPlay extends GLSurfaceView implements SurfaceHolder.Callback {
             nativeGlesPlay(yuv420Path, surface);
         }
     };
+
+    public native void onDestroy();
 
 }

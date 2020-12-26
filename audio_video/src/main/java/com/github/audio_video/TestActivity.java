@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.github.audio_video.audio.AudioPlayActivity;
+import com.github.audio_video.video.VideoPlayActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,7 +18,8 @@ public class TestActivity extends AppCompatActivity {
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE",
             "android.permission.RECORD_AUDIO"};
-    static{
+
+    static {
         System.loadLibrary("audiovideo");
     }
 
@@ -32,7 +34,7 @@ public class TestActivity extends AppCompatActivity {
                     "android.permission.WRITE_EXTERNAL_STORAGE");
             if (permission != PackageManager.PERMISSION_GRANTED) {
                 // 没有写的权限，去申请写的权限，会弹出对话框
-                ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+                ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,5 +46,6 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void video(View view) {
+        startActivity(new Intent(this, VideoPlayActivity.class));
     }
 }
