@@ -32,17 +32,17 @@ public class YUVPlay extends GLSurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        super.surfaceCreated(holder);
+//        super.surfaceCreated(holder);
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        super.surfaceDestroyed(holder);
+//        super.surfaceDestroyed(holder);
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        super.surfaceChanged(holder, format, w, h);
+//        super.surfaceChanged(holder, format, w, h);
     }
 
     public native void nativeGlesPlay(String yuv420Path, Object surface);
