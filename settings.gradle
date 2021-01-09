@@ -1,3 +1,4 @@
+include ':learningvideo'
 include ':audio_video'
 include ':ffmpeg'
 include ':cmake-application'

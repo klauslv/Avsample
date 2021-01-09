@@ -65,6 +65,7 @@ public class YUVPlay extends GLSurfaceView implements SurfaceHolder.Callback {
 
         Thread thread = new Thread(playRunnable);
         thread.start();
+
     }
 
     private Runnable playRunnable = new Runnable() {
