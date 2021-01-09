@@ -24,7 +24,7 @@ class VideoDecoder(path: String, sfv: SurfaceView?, surface: Surface?) : BaseDec
     private var mSurface = surface
 
     override fun doneDecode() {
-
+        Log.i("klaus", "视频解码结束：")
     }
 
     override fun render(byteBuffer: ByteBuffer, mBufferInfo: MediaCodec.BufferInfo) {

@@ -1,5 +1,6 @@
 package com.github.learningvideo.media.decoder
 
+import android.util.Log
 import com.github.learningvideo.media.BaseDecoder
 import com.github.learningvideo.media.Frame
 import com.github.learningvideo.media.IDecoderStateListener
@@ -10,35 +11,36 @@ import com.github.learningvideo.media.IDecoderStateListener
  * Description: 默认解码状态监听器
  */
 class DefDecodeStateListener : IDecoderStateListener {
+    private val TAG = "DefDecodeStateListener";
     override fun decoderPrepare(decodeJob: BaseDecoder?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderPrepare")
     }
 
     override fun decoderReady(decodeJob: BaseDecoder?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderReady")
     }
 
     override fun decoderRunning(decodeJob: BaseDecoder?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderRunning")
     }
 
     override fun decoderPause(decodeJob: BaseDecoder?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderPause")
     }
 
     override fun decodeOneFrame(decodeJob: BaseDecoder?, frame: Frame) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decodeOneFrame")
     }
 
     override fun decoderFinish(decodeJob: BaseDecoder?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderFinish")
     }
 
     override fun decoderDestroy(decodeJob: BaseDecoder?) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderDestroy")
     }
 
     override fun decoderError(decodeJob: BaseDecoder?, msg: String) {
-        TODO("Not yet implemented")
+        Log.d(TAG, "decoderError")
     }
 }

@@ -13,7 +13,7 @@ import java.util.*
  * Description:解码器基类
  */
 abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
-    private val TAG = "BaseDecoder"
+    private val TAG = "klaus"
     //------------线程相关----------------------
 
     /**
@@ -106,11 +106,14 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
 
                 //--------------同步时间矫正------------------
                 //恢复同步的起始时间，即去除等待流失的时间
+                Log.i(TAG, "恢复解码 矫正时间：$mState")
                 mStartTimeForSync = System.currentTimeMillis() - getCurTimeStamp()
+
             }
 
             if (!mIsRunning ||
                     mState == DecodeState.STOP) {
+                Log.i(TAG, "解码停止跳出循环：$mState")
                 mIsRunning = false
                 break
             }
@@ -123,18 +126,23 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
             if (!mIsEOS) {
                 //解码步骤：2、将数据压入解码器输入缓冲
                 mIsEOS = pushBufferFromDecoder()
+                Log.i(TAG, "将数据压入解码器输入缓冲：$mIsEOS")
             }
 
             //解码步骤3、将解码好的数据从缓冲区拉取出来
             val index = pullBufferFromDecoder()
+            Log.i(TAG, "将解码好的数据从缓冲区拉取出来：$index")
             if (index >= 0) {
                 //解码步骤4、渲染
+                Log.i(TAG, "渲染数据")
                 render(mOutputBuffers!![index], mBufferInfo)
                 //解码步骤5、释放输出缓冲
                 //第二个参数，是个boolean，命名为render，这个参数在视频解码时，用于决定是否要将这一帧数据显示出来
+                Log.i(TAG, "释放输出缓存区")
                 mCodec!!.releaseOutputBuffer(index, true)
                 if (mState == DecodeState.START) {
                     mState = DecodeState.PAUSE
+                    Log.i(TAG, "暂停解码：$mState")
                 }
             }
 
@@ -142,6 +150,7 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
             //当接收到这个标志后，解码器就知道所有数据已经接收完毕，在所有数据解码完成以后，会在最后一帧数据加上结束标记信息，
             if (mBufferInfo.flags == MediaCodec.BUFFER_FLAG_END_OF_STREAM) {
                 mState = DecodeState.FINISH
+                Log.i(TAG, "解码结束：$mState")
                 mStateListener?.decoderFinish(this)
             }
         }
@@ -285,7 +294,7 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
             val type = mExtractor!!.getFormat()!!.getString(MediaFormat.KEY_MIME)!!
             //最后，调用createDecoderByType创建解码器。
             mCodec = MediaCodec.createDecoderByType(type)
-            //2.配置接麦器
+            //2.配置解码器
             if (!configCodec(mCodec!!, mExtractor!!.getFormat()!!)) {
                 waitDecode()
             }

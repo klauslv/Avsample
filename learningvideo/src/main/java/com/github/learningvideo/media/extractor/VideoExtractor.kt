@@ -13,6 +13,7 @@ import java.security.cert.CertPath
  */
 class VideoExtractor(path: String) : IExtractor {
     private val mMediaExtractor = MMExtractor(path)
+
     override fun getFormat(): MediaFormat? {
         return mMediaExtractor.getVideoFormat()
     }

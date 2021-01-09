@@ -1,6 +1,7 @@
 package com.github.learningvideo.media.decoder
 
 import android.media.*
+import android.util.Log
 import com.github.learningvideo.media.BaseDecoder
 import com.github.learningvideo.media.IExtractor
 import com.github.learningvideo.media.extractor.AudioExtractor
@@ -41,6 +42,7 @@ class AudioDecoder(path: String) : BaseDecoder(path) {
 
 
     override fun doneDecode() {
+        Log.i("klaus", "音频解码结束：")
         mAudioTrack?.stop()
         mAudioTrack?.release()
     }
@@ -121,6 +123,5 @@ class AudioDecoder(path: String) : BaseDecoder(path) {
     }
 
     override fun stop() {
-        TODO("Not yet implemented")
     }
 }

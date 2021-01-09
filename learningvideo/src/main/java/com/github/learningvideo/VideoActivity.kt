@@ -35,7 +35,7 @@ class VideoActivity : AppCompatActivity() {
         val path = Environment.getExternalStorageDirectory().absolutePath + "/mvtest.mp4"
 
         //创建线程池
-        val threadPool = Executors.newFixedThreadPool(2)
+        val threadPool = Executors.newFixedThreadPool(10)
 
         //创建视频解码器
         val videoDecoder = VideoDecoder(path,sfv,null)
