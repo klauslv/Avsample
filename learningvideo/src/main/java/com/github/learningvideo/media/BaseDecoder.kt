@@ -77,6 +77,9 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
 
     /**
      * 开始解码时间，用于音视频同步
+     * 1、比对 在解码数据出来以后，检查PTS时间戳和当前系统流过的时间差距，快则延时，慢则直接播放
+     * 2、矫正 在进入暂停或解码结束，重新恢复播放时，需要将系统流过的时间做一下矫正，
+     *   将暂停的时间减去，恢复真正的流逝时间，即已播放时间
      */
     private var mStartTimeForSync = -1L
 
@@ -106,6 +109,8 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
 
                 //--------------同步时间矫正------------------
                 //恢复同步的起始时间，即去除等待流失的时间
+//                在进入暂停以后，由于系统时间一直在走，
+//                而mStartTimeForSync并没有随着系统时间累加，所以当恢复播放以后，重新将mStartTimeForSync加上这段暂停的时间段。
                 Log.i(TAG, "恢复解码 矫正时间：$mState")
                 mStartTimeForSync = System.currentTimeMillis() - getCurTimeStamp()
 
@@ -118,6 +123,7 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
                 break
             }
 
+//            进入解码前，获取当前系统时间，存放在mStartTimeForSync
             if (mStartTimeForSync == -1L) {
                 mStartTimeForSync = System.currentTimeMillis()
             }
@@ -133,6 +139,10 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
             val index = pullBufferFromDecoder()
             Log.i(TAG, "将解码好的数据从缓冲区拉取出来：$index")
             if (index >= 0) {
+                //================音视频同步============
+                if (mState == DecodeState.DECODING) {
+                    sleepRender()
+                }
                 //解码步骤4、渲染
                 Log.i(TAG, "渲染数据")
                 render(mOutputBuffers!![index], mBufferInfo)
@@ -158,6 +168,16 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
         //解码步骤7、释放解码器
         //在while循环结束后，释放掉所有的资源。至此，一次解码结束
         release()
+    }
+
+    private fun sleepRender() {
+//        一帧数据解码出来以后，计算当前系统时间和mStartTimeForSync的距离，也就是已经播放的时间
+        val passTime = System.currentTimeMillis() - mStartTimeForSync
+        val curTime = getCurTimeStamp()
+//        如果当前帧的PTS大于流失的时间，进入sleep，否则直接渲染。
+        if (curTime>passTime){
+            Thread.sleep(curTime-passTime)
+        }
     }
 
     /**
@@ -404,11 +424,11 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
     }
 
     override fun setSizeListener(l: IDecoderProgress) {
-        TODO("Not yet implemented")
+
     }
 
     override fun setStateListener(l: IDecoderStateListener) {
-        TODO("Not yet implemented")
+
     }
 
     override fun getWidth(): Int {
@@ -423,6 +443,7 @@ abstract class BaseDecoder(private val mFilePath: String) : IDecoder {
         return mDuration
     }
 
+    //当前帧的PTS
     override fun getCurTimeStamp(): Long {
         return mBufferInfo.presentationTimeUs / 1000
     }

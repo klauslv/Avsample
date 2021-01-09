@@ -6,6 +6,7 @@ import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import com.github.learningvideo.media.decoder.AudioDecoder
+import com.github.learningvideo.media.decoder.DefDecodeStateListener
 import com.github.learningvideo.media.decoder.VideoDecoder
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
@@ -39,10 +40,12 @@ class VideoActivity : AppCompatActivity() {
 
         //创建视频解码器
         val videoDecoder = VideoDecoder(path,sfv,null)
+        videoDecoder.setStateListener(DefDecodeStateListener())
         threadPool.execute(videoDecoder)
 
         //创建音频解码器
         val audioDecoder = AudioDecoder(path)
+        audioDecoder.setStateListener(DefDecodeStateListener())
         threadPool.execute(audioDecoder)
 
         //开启播放
