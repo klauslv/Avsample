@@ -60,7 +60,7 @@ class MMExtractor(path: String?) {
 //        然后获取对应通道的编码格式，判断是否包含"video/"或者"audio/"开头的编码格式；
 //        最后通过获取的索引，返回对应的音视频多媒体格式信息。
         for (i in 0 until mExtractor!!.trackCount) {
-            val mediaFormat = mExtractor!!.getTrackFormat(0)
+            val mediaFormat = mExtractor!!.getTrackFormat(i)
             val mime = mediaFormat.getString(MediaFormat.KEY_MIME)
             if (mime!!.startsWith("video/")) {
                 mVideoTrack = i

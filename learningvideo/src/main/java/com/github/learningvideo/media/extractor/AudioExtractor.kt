@@ -27,6 +27,10 @@ class AudioExtractor(path: String) : IExtractor {
         return mMediaExtractor.getCurrentTimeStamp()
     }
 
+    /**
+     * 如视频I/P/B帧，也可通过Extractor获取
+     * @return Int
+     */
     override fun getSampleFlag(): Int {
         return mMediaExtractor.getSampleFlag()
     }

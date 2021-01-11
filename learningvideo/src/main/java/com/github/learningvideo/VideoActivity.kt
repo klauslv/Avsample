@@ -8,17 +8,25 @@ import android.widget.Toast
 import com.github.learningvideo.media.decoder.AudioDecoder
 import com.github.learningvideo.media.decoder.DefDecodeStateListener
 import com.github.learningvideo.media.decoder.VideoDecoder
+import com.github.learningvideo.media.muxer.MP4Repack
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_video.*
 import java.util.concurrent.Executors
 
+/**
+ * 简单播放器
+ */
 class VideoActivity : AppCompatActivity() {
+    val path = Environment.getExternalStorageDirectory().absolutePath + "/mvtest.mp4"
+    lateinit var videoDecoder: VideoDecoder
+    lateinit var audioDecoder: AudioDecoder
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
         requestPermission()
-
+        initPlayer()
     }
 
     private fun requestPermission() {
@@ -33,18 +41,16 @@ class VideoActivity : AppCompatActivity() {
     }
 
     private fun initPlayer() {
-        val path = Environment.getExternalStorageDirectory().absolutePath + "/mvtest.mp4"
-
         //创建线程池
         val threadPool = Executors.newFixedThreadPool(10)
 
         //创建视频解码器
-        val videoDecoder = VideoDecoder(path,sfv,null)
+        videoDecoder = VideoDecoder(path, sfv, null)
         videoDecoder.setStateListener(DefDecodeStateListener())
         threadPool.execute(videoDecoder)
 
         //创建音频解码器
-        val audioDecoder = AudioDecoder(path)
+        audioDecoder = AudioDecoder(path)
         audioDecoder.setStateListener(DefDecodeStateListener())
         threadPool.execute(audioDecoder)
 
@@ -54,6 +60,17 @@ class VideoActivity : AppCompatActivity() {
     }
 
     fun clickRepack(view: View) {
-        initPlayer()
+        repack()
+    }
+
+    private fun repack() {
+        val repack = MP4Repack(path)
+        repack.start()
+    }
+
+    override fun onDestroy() {
+        videoDecoder.stop()
+        audioDecoder.stop()
+        super.onDestroy()
     }
 }
