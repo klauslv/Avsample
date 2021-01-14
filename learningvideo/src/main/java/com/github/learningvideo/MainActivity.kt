@@ -32,8 +32,16 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, VideoActivity::class.java))
     }
 
-    fun clickSimpleTriangle(view: View) {}
-    fun clickSimpleTexture(view: View) {}
+    fun clickSimpleTriangle(view: View) {
+        val intent = Intent(this,SimpleRenderActivity::class.java)
+        intent.putExtra("type",0)
+        startActivity(intent)
+    }
+    fun clickSimpleTexture(view: View) {
+        val  intent = Intent(this,SimpleRenderActivity::class.java)
+        intent.putExtra("type",1)
+        startActivity(intent)
+    }
     fun clickOpenGLPlayer(view: View) {}
     fun clickMultiOpenGLPlayer(view: View) {}
     fun clickEGLPlayer(view: View) {}
