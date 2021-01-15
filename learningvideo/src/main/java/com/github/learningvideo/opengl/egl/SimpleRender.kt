@@ -11,7 +11,7 @@ import javax.microedition.khronos.opengles.GL10
  * 简单的OPENGl渲染器
  * 三个重写的接口在一个线程中，
  */
-class SimpleRenderer : GLSurfaceView.Renderer {
+class SimpleRender : GLSurfaceView.Renderer {
 
     private val drawers = mutableListOf<IDrawer>()
 

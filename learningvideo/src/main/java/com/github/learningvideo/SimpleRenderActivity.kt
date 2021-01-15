@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.github.learningvideo.opengl.drawer.BitmapDrawer
 import com.github.learningvideo.opengl.drawer.IDrawer
 import com.github.learningvideo.opengl.drawer.TriangleDrawer
-import com.github.learningvideo.opengl.egl.SimpleRenderer
+import com.github.learningvideo.opengl.egl.SimpleRender
 import kotlinx.android.synthetic.main.activity_simple_render.*
 
 /**
@@ -46,7 +46,7 @@ class SimpleRenderActivity : AppCompatActivity() {
 
     private fun initRender(drawer: IDrawer) {
         gl_surface.setEGLContextClientVersion(2)
-        val render = SimpleRenderer()
+        val render = SimpleRender()
         render.addDrawer(drawer)
         gl_surface.setRenderer(render)
     }

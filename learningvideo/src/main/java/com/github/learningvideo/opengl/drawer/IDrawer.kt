@@ -16,6 +16,7 @@ interface IDrawer {
     fun setAlpha(alpha: Float)
     fun draw()
     fun setTextureID(id: Int)
+    //新增接口，用于提供SurfaceTexture
     fun getSurfaceTexture(cb: (st: SurfaceTexture) -> Unit) {}
     fun release()
 }

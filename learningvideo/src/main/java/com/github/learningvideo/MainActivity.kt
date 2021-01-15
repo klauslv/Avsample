@@ -33,16 +33,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clickSimpleTriangle(view: View) {
-        val intent = Intent(this,SimpleRenderActivity::class.java)
-        intent.putExtra("type",0)
+        val intent = Intent(this, SimpleRenderActivity::class.java)
+        intent.putExtra("type", 0)
         startActivity(intent)
     }
+
     fun clickSimpleTexture(view: View) {
-        val  intent = Intent(this,SimpleRenderActivity::class.java)
-        intent.putExtra("type",1)
+        val intent = Intent(this, SimpleRenderActivity::class.java)
+        intent.putExtra("type", 1)
         startActivity(intent)
     }
-    fun clickOpenGLPlayer(view: View) {}
+
+    fun clickOpenGLPlayer(view: View) {
+        startActivity(Intent(this, OpenGLPlayerActivity::class.java))
+    }
+
     fun clickMultiOpenGLPlayer(view: View) {}
     fun clickEGLPlayer(view: View) {}
     fun clickSoulPlayer(view: View) {}
