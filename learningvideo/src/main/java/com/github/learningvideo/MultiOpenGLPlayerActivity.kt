@@ -3,6 +3,7 @@ package com.github.learningvideo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.view.Surface
 import com.github.learningvideo.media.decoder.AudioDecoder
 import com.github.learningvideo.media.decoder.VideoDecoder
@@ -36,7 +37,6 @@ class MultiOpenGLPlayerActivity : AppCompatActivity() {
         }
         render.addDrawer(drawer)
 
-        gl_surface1.addDrawer(drawer)
     }
 
 
@@ -49,6 +49,14 @@ class MultiOpenGLPlayerActivity : AppCompatActivity() {
             initPlayer(path2, Surface(it), false)
         }
         render.addDrawer(drawer)
+
+        //设置绘制器，用于触摸移动
+        gl_surface1.addDrawer(drawer)
+
+        // 设置缩放系数
+        Handler().postDelayed({
+            drawer.scale(0.5f, 0.5f)
+        }, 1000)
     }
 
     private fun initPlayer(path: String, surface: Surface, withSound: Boolean) {

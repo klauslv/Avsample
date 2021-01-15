@@ -312,14 +312,28 @@ class VideoDrawer : IDrawer {
         mWorldHeight = worldH
     }
 
+    /**
+     * 设置半透明
+     * @param alpha Float
+     */
     override fun setAlpha(alpha: Float) {
         mAlpha = alpha
     }
 
+    /**
+     * 平移视频
+     * @param dx Float
+     * @param dy Float
+     */
     fun translate(dx: Float, dy: Float) {
         Matrix.translateM(mMatrix, 0, dx * mWidthRatio * 2, -dy * mHeightRatio * 2, 0f)
     }
 
+    /**
+     * 设置缩放
+     * @param sx Float
+     * @param sy Float
+     */
     fun scale(sx: Float, sy: Float) {
         Matrix.scaleM(mMatrix, 0, sx, sy, 1f)
         mWidthRatio /= sx
