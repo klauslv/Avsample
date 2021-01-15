@@ -8,6 +8,7 @@ import com.github.learningvideo.media.decoder.AudioDecoder
 import com.github.learningvideo.media.decoder.VideoDecoder
 import com.github.learningvideo.opengl.SimpleRender
 import com.github.learningvideo.opengl.drawer.VideoDrawer
+import kotlinx.android.synthetic.main.activity_multi_open_g_l_player.*
 import kotlinx.android.synthetic.main.activity_open_g_l_player.*
 import java.util.concurrent.Executors
 
@@ -21,7 +22,7 @@ class MultiOpenGLPlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_open_g_l_player)
+        setContentView(R.layout.activity_multi_open_g_l_player)
         initFirstVideo()
         initSecondVideo()
         initRender()
@@ -34,6 +35,8 @@ class MultiOpenGLPlayerActivity : AppCompatActivity() {
             initPlayer(path, Surface(it), true)
         }
         render.addDrawer(drawer)
+
+        gl_surface1.addDrawer(drawer)
     }
 
 
@@ -61,8 +64,8 @@ class MultiOpenGLPlayerActivity : AppCompatActivity() {
     }
 
     private fun initRender() {
-        gl_surface.setEGLContextClientVersion(2)
-        gl_surface.setRenderer(render)
+        gl_surface1.setEGLContextClientVersion(2)
+        gl_surface1.setRenderer(render)
     }
 
 }
