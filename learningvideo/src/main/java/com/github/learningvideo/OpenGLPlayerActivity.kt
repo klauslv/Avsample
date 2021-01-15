@@ -8,7 +8,7 @@ import com.github.learningvideo.media.decoder.AudioDecoder
 import com.github.learningvideo.media.decoder.VideoDecoder
 import com.github.learningvideo.opengl.drawer.IDrawer
 import com.github.learningvideo.opengl.drawer.VideoDrawer
-import com.github.learningvideo.opengl.egl.SimpleRender
+import com.github.learningvideo.opengl.SimpleRender
 import kotlinx.android.synthetic.main.activity_open_g_l_player.*
 import java.util.concurrent.Executors
 
@@ -25,6 +25,8 @@ class OpenGLPlayerActivity : AppCompatActivity() {
 
     private fun initRender() {
         drawer = VideoDrawer()
+        //设置视频宽高
+        drawer.setVideoSize(1920, 1080)
         drawer.getSurfaceTexture {
             //使用SurfaceTexture初始化一个surface，并传递给MediaCodec使用
             initPlayer(Surface(it))

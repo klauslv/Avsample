@@ -1,4 +1,4 @@
-package com.github.learningvideo.opengl.egl
+package com.github.learningvideo.opengl
 
 import android.opengl.GLES20
 

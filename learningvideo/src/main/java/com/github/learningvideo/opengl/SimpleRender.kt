@@ -1,9 +1,8 @@
-package com.github.learningvideo.opengl.egl
+package com.github.learningvideo.opengl
 
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import com.github.learningvideo.opengl.drawer.IDrawer
-import com.github.learningvideo.opengl.drawer.TriangleDrawer
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 

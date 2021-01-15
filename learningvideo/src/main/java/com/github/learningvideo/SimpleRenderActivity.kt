@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.github.learningvideo.opengl.drawer.BitmapDrawer
 import com.github.learningvideo.opengl.drawer.IDrawer
 import com.github.learningvideo.opengl.drawer.TriangleDrawer
-import com.github.learningvideo.opengl.egl.SimpleRender
+import com.github.learningvideo.opengl.SimpleRender
 import kotlinx.android.synthetic.main.activity_simple_render.*
 
 /**
