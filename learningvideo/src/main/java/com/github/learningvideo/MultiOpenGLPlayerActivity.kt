@@ -39,6 +39,8 @@ class MultiOpenGLPlayerActivity : AppCompatActivity() {
 
     private fun initSecondVideo() {
         val drawer = VideoDrawer()
+        //设置半透明的值
+        drawer.setAlpha(0.5f)
         drawer.setVideoSize(1920, 1080)
         drawer.getSurfaceTexture {
             initPlayer(path2, Surface(it), false)

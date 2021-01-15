@@ -17,9 +17,11 @@ class SimpleRender : GLSurfaceView.Renderer {
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         //清屏，清屏颜色为黑色
         GLES20.glClearColor(0f, 0f, 0f, 0f)
-        //开启混合，即半透明
+        //======开启混合，即半透明=======
         GLES20.glEnable(GLES20.GL_BLEND)
+        //配置混合算法
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA)
+        //===========================
 
         //创建了一个纹理ID，并设置给Drawer,如下
         val textureIds = OpenGLTools.createTextureIds(drawers.size)
@@ -48,6 +50,7 @@ class SimpleRender : GLSurfaceView.Renderer {
      * @param gl GL10
      */
     override fun onDrawFrame(gl: GL10?) {
+        //清屏否者会有画面残留
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
         drawers.forEach {
             it.draw()

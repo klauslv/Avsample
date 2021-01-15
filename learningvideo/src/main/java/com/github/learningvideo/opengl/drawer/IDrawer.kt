@@ -17,11 +17,16 @@ interface IDrawer {
     //设置OPenGL窗口的宽高
     fun setWorldSize(worldW: Int, worldH: Int)
 
-    fun setAlpha(alpha: Float)
+
+    //OPenGL ES 渲染三步
     fun draw()
     fun setTextureID(id: Int)
+    fun release()
 
     //新增接口，用于提供SurfaceTexture
     fun getSurfaceTexture(cb: (st: SurfaceTexture) -> Unit) {}
-    fun release()
+
+    //新增调节alpha接口
+    fun setAlpha(alpha: Float)
+
 }
