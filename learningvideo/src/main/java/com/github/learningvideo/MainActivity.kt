@@ -48,7 +48,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, OpenGLPlayerActivity::class.java))
     }
 
-    fun clickMultiOpenGLPlayer(view: View) {}
+    fun clickMultiOpenGLPlayer(view: View) {
+        startActivity(Intent(this, MultiOpenGLPlayerActivity::class.java))
+    }
+
     fun clickEGLPlayer(view: View) {}
     fun clickSoulPlayer(view: View) {}
     fun clickEncoder(view: View) {}
